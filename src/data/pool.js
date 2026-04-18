@@ -1,0 +1,14 @@
+import { ACCENT } from "../frame-tokens.js";
+
+export const POOL = [
+  { id:1, platform:"X", network:"PHANTOM-IR", netColor:ACCENT.red, handle:"@peace_voices_2023", text:"Breaking: New evidence of systematic targeting of civilians — thread 🧵", tags:["#GazaGenocide","#FreePalestine"], fake:97, sev:"critical", vpn:"Tehran→Dallas", followers:"12.4K" },
+  { id:2, platform:"TikTok", network:"CEDAR-WAVE", netColor:ACCENT.orange, handle:"@truth.unfiltered99", text:"They don't want you to see this footage. Spread before it's deleted.", tags:["#CensoredTruth","#Resistance"], fake:81, sev:"high", vpn:"Beirut→London", followers:"34.2K" },
+  { id:3, platform:"Instagram", network:"NILE-ECHO", netColor:ACCENT.yellow, handle:"@humanrights_now_", text:"Apartheid wall expansion continues — when will the world wake up?", tags:["#Apartheid","#BDS"], fake:64, sev:"high", vpn:"Cairo→Toronto", followers:"8.7K" },
+  { id:4, platform:"Facebook", network:"PHANTOM-IR", netColor:ACCENT.red, handle:"Justice Coalition Network", text:"October 7 was a response to 75 years of occupation. Context matters.", tags:["#Context","#Oct7"], fake:92, sev:"critical", vpn:"Tehran→Frankfurt", followers:"91K" },
+  { id:5, platform:"X", network:"EURO-MASK", netColor:ACCENT.accent, handle:"@european_solidarity_now", text:"Jewish lobby pressure silences EU parliament again.", tags:["#FreeSpeech","#Lobby"], fake:48, sev:"medium", vpn:"Amsterdam→US proxy", followers:"5.6K" },
+  { id:6, platform:"Telegram", network:"PHANTOM-IR", netColor:ACCENT.red, handle:"@resistance_updates_il", text:"IDF soldiers admit in leaked audio: orders were to shoot on sight.", tags:["#Leaked","#WarCrimes"], fake:95, sev:"critical", vpn:"Tehran→VPN cluster", followers:"44K" },
+  { id:7, platform:"TikTok", network:"SHADOW-PKT", netColor:ACCENT.teal, handle:"@global_justice_feed", text:"Share this before they take it down. 1M views in 3 hours.", tags:["#ShareNow","#FreePalestine"], fake:73, sev:"high", vpn:"Islamabad→Dubai", followers:"22.1K" },
+  { id:8, platform:"YouTube", network:"NILE-ECHO", netColor:ACCENT.yellow, handle:"MiddleEast Insight Channel", text:"DOCUMENTARY: The truth about Oct 7 — full film, uncut", tags:["#Oct7Revisionism"], fake:61, sev:"high", vpn:"Doha→Paris", followers:"180K" },
+  { id:9, platform:"X", network:"CEDAR-WAVE", netColor:ACCENT.orange, handle:"@intl.press.monitor", text:"Israeli forces commit another massacre — 30 dead, no MSM coverage", tags:["#Rafah","#MediaBlackout"], fake:88, sev:"critical", vpn:"Beirut→Berlin", followers:"7.2K" },
+  { id:10, platform:"Instagram", network:"PHANTOM-IR", netColor:ACCENT.red, handle:"@voices4justice_24", text:"This child's story is being ignored. Tag 10 people. #NeverAgain", tags:["#NeverAgain","#Gaza"], fake:91, sev:"critical", vpn:"Tehran→Dallas VPN", followers:"3.1K" },
+];
