@@ -34,8 +34,8 @@ Combine freely: `?tab=live-feed&platform=Telegram`. Invalid or unknown params ar
 - React 18 + Vite
 - JavaScript (ESM)
 - GitHub Pages hosting (via GitHub Actions build)
-- Design tokens in `src/tokens.js`
-- Shared schemas via `src/frame-schemas.js` (ESM, single source of truth across FRAME repos)
+- Design tokens in `src/frame-tokens.js`
+- Shared schemas via `src/schemas/frame-schemas.js` (ESM, single source of truth across FRAME repos)
 
 ## Local development
 
@@ -57,14 +57,13 @@ Build for production:
     ├── vite.config.js
     ├── package.json
     ├── src/
-    │   ├── App.jsx                # root component + tab routing
+    │   ├── App.jsx                # root component + tab routing + URL deep-linking (Phase 6a)
     │   ├── main.jsx               # entry
-    │   ├── tokens.js              # design tokens
-    │   ├── frame-schemas.js       # shared enums + typedefs (ESM)
-    │   ├── hooks/
-    │   │   └── useDeepLink.js     # URL query-param sync (Phase 6a)
-    │   ├── components/            # per-tab view components
-    │   └── ...
+    │   ├── frame-tokens.js        # design tokens
+    │   ├── schemas/
+    │   │   └── frame-schemas.js   # shared enums + typedefs (ESM)
+    │   ├── components/            # UI + per-tab view components (Badge, FilterBar, GeoMap, OverviewTab, LiveFeedTab, ...)
+    │   └── data/                  # static datasets (alerts, geo, narratives, networks, pool, vpnRoutes)
     └── docs/screenshots/          # (TODO)
 
 ## Related FRAME repos
