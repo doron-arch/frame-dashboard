@@ -13,6 +13,7 @@ import NetworksTab from "./components/NetworksTab.jsx";
 import ResponseTab from "./components/ResponseTab.jsx";
 import NarrativesTab from "./components/NarrativesTab.jsx";
 import KpisTab from "./components/KpisTab.jsx";
+import MockupNav from './components/MockupNav';
 
 const PLATFORMS_LIST = ["All","X","TikTok","Instagram","Facebook","Telegram","YouTube"];
 const NETWORKS_LIST = ["All","PHANTOM-IR","CEDAR-WAVE","NILE-ECHO","SHADOW-PKT","EURO-MASK"];
@@ -220,6 +221,7 @@ export default function Dashboard() {
         <span style={{ color:C.muted, fontSize:isMobile?8:9, letterSpacing:1, fontFamily:"'Bebas Neue', sans-serif", opacity:0.6 }}>[FRAME] · HUB IL · SHARED INTELLIGENCE HUB</span>
         <span style={{ color:C.muted, fontSize:isMobile?8:9, fontFamily:"'JetBrains Mono', monospace", opacity:0.6 }}>{new Date().toUTCString().slice(0,25)} UTC</span>
       </div>
+      <MockupNav />
     </div>
   );
 }
