@@ -51,7 +51,7 @@ function writeUrlState(tab, filters) {
 }
 
 export default function Dashboard() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(() => localStorage.getItem('frame-theme') || 'light');
   const isDark = theme === "dark";
   const C = isDark ? DARK : LIGHT;
   const sevColor = s => s==="critical"?CORAL_RED:s==="high"?CORAL_LIGHT:s==="medium"?ELECTRIC_BLUE:C.muted;
@@ -93,6 +93,17 @@ export default function Dashboard() {
     const t=setInterval(()=>setAlertIdx(i=>(i+1)%ALERTS.length),3500);
     return()=>clearInterval(t);
   },[]);
+
+  // ── Cross-tab theme sync ──
+  useEffect(() => {
+    function onStorage(e) {
+      if (e.key === 'frame-theme' && e.newValue) {
+        setTheme(e.newValue);
+      }
+    }
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
 
   const handleSelect=(post)=>{setSelected(post);setPaused(true);};
   const filteredFeed=feed.filter(p=>{
@@ -160,7 +171,11 @@ export default function Dashboard() {
         <FrameLogo size={1} C={C} isDark={isDark}/>
         <div style={{ display:"flex", gap:isMobile?16:30, alignItems:"center", flexWrap:isMobile?"wrap":"nowrap", justifyContent:isMobile?"center":"flex-end", width:isMobile?"100%":"auto" }}>
           <Tooltip C={C} text={isDark ? "Switch to light theme" : "Switch to dark theme"}>
-            <div onClick={() => setTheme(t => t === "dark" ? "light" : "dark")}
+            <div onClick={() => setTheme(t => {
+              const next = t === "dark" ? "light" : "dark";
+              localStorage.setItem('frame-theme', next);
+              return next;
+            })}
               style={{ display:"flex", alignItems:"center", gap:8, cursor:"pointer", userSelect:"none" }}>
               <div style={{
                 width:40, height:22, borderRadius:11, padding:2,
