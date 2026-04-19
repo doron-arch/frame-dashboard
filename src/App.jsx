@@ -115,6 +115,7 @@ export default function Dashboard() {
 
   return (
     <div style={{ background:C.bg, minHeight:"100vh", color:C.text, fontFamily:"'Inter', sans-serif", fontSize:13, display:"flex", flexDirection:"column" }}>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
         @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
@@ -122,10 +123,40 @@ export default function Dashboard() {
         ::-webkit-scrollbar{width:4px;background:${C.scrollBg}}::-webkit-scrollbar-thumb{background:${C.scrollThumb};border-radius:2px}
         button{transition:all 0.15s}
         @media (max-width: 768px) { body { font-size: 12px; } }
+        .skip-link {
+          position: absolute;
+          top: -100px;
+          left: 12px;
+          z-index: 10000;
+          padding: 10px 16px;
+          background: ${C.bg};
+          color: ${C.accent};
+          border: 2px solid ${C.accent};
+          border-radius: 6px;
+          font: 600 13px/1 'Inter', system-ui, sans-serif;
+          text-decoration: none;
+          transition: top 150ms ease;
+        }
+        .skip-link:focus { top: 12px; outline: none; }
+        *:focus-visible {
+          outline: 2px solid ${C.accent};
+          outline-offset: 2px;
+          border-radius: 3px;
+        }
+        button:focus-visible, a:focus-visible, [role="tab"]:focus-visible {
+          outline: 2px solid ${C.accent};
+          outline-offset: 3px;
+        }
+        .visually-hidden {
+          position: absolute;
+          width: 1px; height: 1px; padding: 0; margin: -1px;
+          overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+        }
       `}</style>
+      <h1 className="visually-hidden">FRAME Dashboard — Intelligence Hub</h1>
 
       {/* ── HEADER ── */}
-      <div style={{ background:C.headerBg, borderBottom:`1px solid ${C.border}`, padding:isMobile ? "12px 16px" : "0 22px", display:"flex", alignItems:"center", justifyContent:"space-between", height:isMobile ? "auto" : 60, flexShrink:0, flexDirection:isMobile ? "column" : "row", gap:isMobile ? 12 : 0 }}>
+      <header style={{ background:C.headerBg, borderBottom:`1px solid ${C.border}`, padding:isMobile ? "12px 16px" : "0 22px", display:"flex", alignItems:"center", justifyContent:"space-between", height:isMobile ? "auto" : 60, flexShrink:0, flexDirection:isMobile ? "column" : "row", gap:isMobile ? 12 : 0 }}>
         <FrameLogo size={1} C={C} isDark={isDark}/>
         <div style={{ display:"flex", gap:isMobile?16:30, alignItems:"center", flexWrap:isMobile?"wrap":"nowrap", justifyContent:isMobile?"center":"flex-end", width:isMobile?"100%":"auto" }}>
           <Tooltip C={C} text={isDark ? "Switch to light theme" : "Switch to dark theme"}>
@@ -165,7 +196,7 @@ export default function Dashboard() {
             </div>
           </Tooltip>
         </div>
-      </div>
+      </header>
 
       {/* ── ALERT BAR ── */}
       <div style={{ background:C.alertBg, borderBottom:`1px solid ${C.border}`, padding:"6px 22px", display:"flex", alignItems:"center", gap:12, flexShrink:0, overflow:"hidden" }}>
@@ -174,7 +205,7 @@ export default function Dashboard() {
       </div>
 
       {/* ── TABS ── */}
-      <div style={{ padding:isMobile?"0 12px":"0 22px", borderBottom:`1px solid ${C.border}`, display:"flex", flexShrink:0, background:C.tabBg, overflowX:isMobile?"auto":"visible" }}>
+      <nav aria-label="Primary" style={{ padding:isMobile?"0 12px":"0 22px", borderBottom:`1px solid ${C.border}`, display:"flex", flexShrink:0, background:C.tabBg, overflowX:isMobile?"auto":"visible" }}>
         {tabs.map(t=>{
           const tooltips = {
             "overview":"Dashboard overview","live-feed":"Real-time incoming posts","geo-intel":"Geographic origin mapping",
@@ -188,7 +219,11 @@ export default function Dashboard() {
           const activeColor = isDark ? "#FFFFFF" : INDIGO;
           return (
             <Tooltip key={t} C={C} text={tooltips[t]}>
-              <button onClick={()=>setTab(t)} style={{
+              <button
+                onClick={()=>setTab(t)}
+                role="tab"
+                aria-selected={tab===t}
+                style={{
                 background:"none", border:"none", padding:isMobile?"8px 12px":"10px 18px", cursor:"pointer",
                 color: tab===t ? activeColor : C.muted,
                 borderBottom: tab===t ? `2px solid ${activeColor}` : "2px solid transparent",
@@ -200,13 +235,13 @@ export default function Dashboard() {
             </Tooltip>
           );
         })}
-      </div>
+      </nav>
 
       {/* ── FILTER BAR ── */}
       {tab==="live-feed" && <FilterBar filters={filters} setFilters={setFilters} C={C} isDark={isDark} platformsList={PLATFORMS_LIST} sevList={SEV_LIST} networksList={NETWORKS_LIST}/>}
 
       {/* ── BODY ── */}
-      <div style={{ display:"flex", flex:1, overflow:"hidden", flexDirection:isMobile && tab === "live-feed" ? "column" : "row" }}>
+      <main id="main-content" style={{ display:"flex", flex:1, overflow:"hidden", flexDirection:isMobile && tab === "live-feed" ? "column" : "row" }}>
         {tab==="overview" && <OverviewTab C={C} isDark={isDark} isMobile={isMobile} feed={feed} selected={selected} newIds={newIds} handleSelect={handleSelect} setTab={setTab} SectionHeader={SectionHeader} sevColor={sevColor} dataColor={dataColor} threatColor={threatColor}/>}
         {tab==="live-feed" && <LiveFeedTab C={C} isDark={isDark} isMobile={isMobile} filteredFeed={filteredFeed} selected={selected} newIds={newIds} handleSelect={handleSelect} paused={paused} setPaused={setPaused} sevColor={sevColor} dataColor={dataColor} threatColor={threatColor}/>}
         {tab==="geo-intel" && <GeoIntelTab C={C} isDark={isDark} isMobile={isMobile}/>}
@@ -214,13 +249,13 @@ export default function Dashboard() {
         {tab==="response" && <ResponseTab C={C} isDark={isDark} isMobile={isMobile} dataColor={dataColor}/>}
         {tab==="narratives" && <NarrativesTab C={C} isDark={isDark} isMobile={isMobile} sevColor={sevColor}/>}
         {tab==="kpis" && <KpisTab C={C} isDark={isDark} isMobile={isMobile} dataColor={dataColor}/>}
-      </div>
+      </main>
 
       {/* ── FOOTER ── */}
-      <div style={{ background:C.footerBg, borderTop:`1px solid ${C.border}`, padding:isMobile?"6px 12px":"6px 22px", display:"flex", justifyContent:"space-between", alignItems:"center", flexShrink:0, flexDirection:isMobile?"column":"row", gap:isMobile?6:0 }}>
+      <footer style={{ background:C.footerBg, borderTop:`1px solid ${C.border}`, padding:isMobile?"6px 12px":"6px 22px", display:"flex", justifyContent:"space-between", alignItems:"center", flexShrink:0, flexDirection:isMobile?"column":"row", gap:isMobile?6:0 }}>
         <span style={{ color:C.muted, fontSize:isMobile?8:9, letterSpacing:1, fontFamily:"'Bebas Neue', sans-serif", opacity:0.6 }}>[FRAME] · HUB IL · SHARED INTELLIGENCE HUB</span>
         <span style={{ color:C.muted, fontSize:isMobile?8:9, fontFamily:"'JetBrains Mono', monospace", opacity:0.6 }}>{new Date().toUTCString().slice(0,25)} UTC</span>
-      </div>
+      </footer>
       <MockupNav />
     </div>
   );
