@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { INDIGO, ELECTRIC_BLUE, CORAL_RED, CORAL_LIGHT, DARK_NAVY, DARK, LIGHT } from "./frame-tokens.js";
+import { PLATFORMS, SEVERITY, NETWORKS } from './schemas/frame-schemas';
 import { POOL } from "./data/pool.js";
 import { ALERTS } from "./data/alerts.js";
 import Tooltip from "./components/Tooltip.jsx";
@@ -17,23 +18,56 @@ const PLATFORMS_LIST = ["All","X","TikTok","Instagram","Facebook","Telegram","Yo
 const NETWORKS_LIST = ["All","PHANTOM-IR","CEDAR-WAVE","NILE-ECHO","SHADOW-PKT","EURO-MASK"];
 const SEV_LIST = ["All","critical","high","medium","low"];
 
+const VALID_TABS = ['overview','livefeed','narratives','networks','geo','kpis','response'];
+const PLATFORM_VALUES = Object.values(PLATFORMS);
+const SEV_VALUES = Object.values(SEVERITY);
+const NETWORK_VALUES = Object.values(NETWORKS);
+
+function readUrlState() {
+  if (typeof window === 'undefined') return { tab: 'overview', filters: { platform: 'All', sev: 'All', network: 'All' } };
+  const p = new URLSearchParams(window.location.search);
+  const rawTab = p.get('tab');
+  const tab = VALID_TABS.includes(rawTab) ? rawTab : 'overview';
+  const rawPlatform = p.get('platform');
+  const platform = PLATFORM_VALUES.includes(rawPlatform) ? rawPlatform : 'All';
+  const rawSev = p.get('severity');
+  const sev = SEV_VALUES.includes(rawSev) ? rawSev : 'All';
+  const rawNetwork = p.get('network');
+  const network = NETWORK_VALUES.includes(rawNetwork) ? rawNetwork : 'All';
+  return { tab, filters: { platform, sev, network } };
+}
+
+function writeUrlState(tab, filters) {
+  if (typeof window === 'undefined') return;
+  const p = new URLSearchParams();
+  if (tab && tab !== 'overview') p.set('tab', tab);
+  if (filters.platform && filters.platform !== 'All') p.set('platform', filters.platform);
+  if (filters.sev && filters.sev !== 'All') p.set('severity', filters.sev);
+  if (filters.network && filters.network !== 'All') p.set('network', filters.network);
+  const qs = p.toString();
+  const newUrl = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
+  window.history.replaceState(null, '', newUrl);
+}
+
 export default function Dashboard() {
   const [theme, setTheme] = useState("light");
   const isDark = theme === "dark";
   const C = isDark ? DARK : LIGHT;
   const sevColor = s => s==="critical"?CORAL_RED:s==="high"?CORAL_LIGHT:s==="medium"?ELECTRIC_BLUE:C.muted;
 
-  const [tab, setTab] = useState("overview");
+  const [tab, setTab] = useState(() => readUrlState().tab);
   const [feed, setFeed] = useState(POOL.slice(0,5));
   const [newIds, setNewIds] = useState(new Set());
   const [paused, setPaused] = useState(false);
   const [selected, setSelected] = useState(POOL[0]);
   const [alertIdx, setAlertIdx] = useState(0);
   const [stats, setStats] = useState({ threats:2847, fake:14203, takedowns:341, networks:5 });
-  const [filters, setFilters] = useState({ platform:"All", sev:"All", network:"All" });
+  const [filters, setFilters] = useState(() => readUrlState().filters);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const poolIdx = useRef(5);
   const tabs = ["overview","live-feed","geo-intel","networks","response","narratives","kpis"];
+
+  useEffect(() => { writeUrlState(tab, filters); }, [tab, filters]);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
