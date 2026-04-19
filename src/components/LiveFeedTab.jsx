@@ -33,15 +33,24 @@ export default function LiveFeedTab({ C, isDark, isMobile, filteredFeed, selecte
                 <Badge s={selected.sev} C={C}/>
               </div>
               <div style={{ color:C.muted, fontSize:11, lineHeight:1.6, background:C.cardQuoteBg, borderRadius:4, padding:"10px 12px", marginBottom:14, fontFamily:"'Inter', sans-serif" }}>"{selected.text}"</div>
-              {[["Platform",selected.platform,dataColor],["Network",selected.network,selected.netColor],["VPN Route",selected.vpn,dataColor],["Followers",selected.followers, isDark ? "#E0E0E0" : DARK_NAVY]].map(([l,v,col])=>(
+              {[
+                ["Platform",selected.platform,dataColor,"Social platform where the post originated"],
+                ["Network",selected.network,selected.netColor,"Coordinated network cluster this account belongs to"],
+                ["VPN Route",selected.vpn,dataColor,"Exit-node region detected for this account"],
+                ["Followers",selected.followers, isDark ? "#E0E0E0" : DARK_NAVY,"Follower count at time of post"]
+              ].map(([l,v,col,tip])=>(
                 <div key={l} style={{ display:"flex", justifyContent:"space-between", marginBottom:8, borderBottom:`1px solid ${C.border}`, paddingBottom:8 }}>
-                  <span style={{ color:C.muted, fontSize:11, fontFamily:"'Bebas Neue', sans-serif" }}>{l}</span>
+                  <Tooltip C={C} text={tip}>
+                    <span style={{ color:C.muted, fontSize:11, fontFamily:"'Bebas Neue', sans-serif" }}>{l}</span>
+                  </Tooltip>
                   <span style={{ color:col, fontSize:11, fontWeight:700, fontFamily:"'JetBrains Mono', monospace" }}>{v}</span>
                 </div>
               ))}
               <div style={{ marginBottom:14 }}>
                 <div style={{ display:"flex", justifyContent:"space-between", marginBottom:5 }}>
-                  <span style={{ color:C.muted, fontSize:11, fontFamily:"'Bebas Neue', sans-serif" }}>FAKE SCORE</span>
+                  <Tooltip C={C} text="Probability that this account is fake or automated">
+                    <span style={{ color:C.muted, fontSize:11, fontFamily:"'Bebas Neue', sans-serif" }}>FAKE SCORE</span>
+                  </Tooltip>
                   <span style={{ color:selected.fake>80?CORAL_RED:selected.fake>60?CORAL_LIGHT:ELECTRIC_BLUE, fontWeight:800, fontSize:14, fontFamily:"'JetBrains Mono', monospace" }}>{selected.fake}%</span>
                 </div>
                 <div style={{ height:6, background: isDark ? C.blue : "#E8E8F0", borderRadius:0 }}>

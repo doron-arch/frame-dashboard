@@ -31,7 +31,11 @@ export default function OverviewTab({ C, isDark, isMobile, feed, selected, newId
 
       {/* Live feed preview */}
       <div style={{ background:C.panel, border:`1px solid ${C.border}`, borderRadius:8, padding:isMobile?14:18, overflow:"hidden", boxShadow:`0 2px 8px rgba(0,0,0,${isDark?"0.2":"0.04"})` }}>
-        <SectionHeader right={<span onClick={()=>setTab("live-feed")}>VIEW ALL →</span>}>LIVE FEED</SectionHeader>
+        <SectionHeader right={
+          <Tooltip C={C} text="Open the full Live Feed" below>
+            <span onClick={()=>setTab("live-feed")}>VIEW ALL →</span>
+          </Tooltip>
+        }>LIVE FEED</SectionHeader>
         {feed.slice(0,4).map(p=>(
           <PostCard key={p.id} post={p} selected={selected?.id===p.id} onClick={handleSelect} isNew={newIds.has(p.id)} compact C={C} isDark={isDark}/>
         ))}
@@ -39,21 +43,31 @@ export default function OverviewTab({ C, isDark, isMobile, feed, selected, newId
 
       {/* Geo mini map */}
       <div style={{ background:C.panel, border:`1px solid ${C.border}`, borderRadius:8, padding:isMobile?14:18, display:isMobile?"none":"block", boxShadow:`0 2px 8px rgba(0,0,0,${isDark?"0.2":"0.04"})` }}>
-        <SectionHeader right={<span onClick={()=>setTab("geo-intel")}>FULL MAP →</span>}>GEO-INTEL</SectionHeader>
+        <SectionHeader right={
+          <Tooltip C={C} text="Open the detailed Geo-Intel view" below>
+            <span onClick={()=>setTab("geo-intel")}>FULL MAP →</span>
+          </Tooltip>
+        }>GEO-INTEL</SectionHeader>
         <GeoMap detailed={false} C={C} isDark={isDark}/>
         <div style={{ display:"flex", gap:10, marginTop:12, flexWrap:"wrap" }}>
           {GEO.filter(g=>g.count>300).map(pt=>(
-            <div key={pt.city} style={{ background:C.panelLight, border:`1px solid ${pt.c}33`, borderRadius:0, padding:"5px 10px" }}>
-              <span style={{ color:pt.c, fontSize:10, fontWeight:700, fontFamily:"'Bebas Neue', sans-serif" }}>{pt.city}</span>
-              <span style={{ color:C.muted, fontSize:10, marginLeft:6, fontFamily:"'JetBrains Mono', monospace" }}>{pt.count}</span>
-            </div>
+            <Tooltip key={pt.city} C={C} text={`${pt.city}: ${pt.count} attributed posts`}>
+              <div style={{ background:C.panelLight, border:`1px solid ${pt.c}33`, borderRadius:0, padding:"5px 10px" }}>
+                <span style={{ color:pt.c, fontSize:10, fontWeight:700, fontFamily:"'Bebas Neue', sans-serif" }}>{pt.city}</span>
+                <span style={{ color:C.muted, fontSize:10, marginLeft:6, fontFamily:"'JetBrains Mono', monospace" }}>{pt.count}</span>
+              </div>
+            </Tooltip>
           ))}
         </div>
       </div>
 
       {/* Threat Networks summary */}
       <div style={{ background:C.panel, border:`1px solid ${C.border}`, borderRadius:8, padding:isMobile?14:18, boxShadow:`0 2px 8px rgba(0,0,0,${isDark?"0.2":"0.04"})` }}>
-        <SectionHeader right={<span onClick={()=>setTab("networks")}>DETAILS →</span>}>THREAT NETWORKS</SectionHeader>
+        <SectionHeader right={
+          <Tooltip C={C} text="Open full Networks breakdown" below>
+            <span onClick={()=>setTab("networks")}>DETAILS →</span>
+          </Tooltip>
+        }>THREAT NETWORKS</SectionHeader>
         {NETWORKS_DATA.map(n=>(
           <div key={n.id} style={{ display:"flex", alignItems:"center", gap:12, marginBottom:12 }}>
             <div style={{ width:3, height:40, background:n.col, borderRadius:0, flexShrink:0 }}/>
@@ -76,7 +90,11 @@ export default function OverviewTab({ C, isDark, isMobile, feed, selected, newId
 
       {/* Active Narratives summary */}
       <div style={{ background:C.panel, border:`1px solid ${C.border}`, borderRadius:8, padding:isMobile?14:18, boxShadow:`0 2px 8px rgba(0,0,0,${isDark?"0.2":"0.04"})` }}>
-        <SectionHeader right={<span onClick={()=>setTab("narratives")}>DETAILS →</span>}>ACTIVE NARRATIVES</SectionHeader>
+        <SectionHeader right={
+          <Tooltip C={C} text="Open full Narratives breakdown" below>
+            <span onClick={()=>setTab("narratives")}>DETAILS →</span>
+          </Tooltip>
+        }>ACTIVE NARRATIVES</SectionHeader>
         {NARRATIVES_DATA.map((n,i)=>(
           <div key={i} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:10, paddingBottom:10, borderBottom:`1px solid ${C.border}` }}>
             <div style={{ flex:1 }}>
