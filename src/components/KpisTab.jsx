@@ -21,7 +21,9 @@ export default function KpisTab({ C, isDark, isMobile, dataColor }) {
               <div style={{ color:C.muted, fontSize:12, letterSpacing:1.5, textTransform:"uppercase", marginBottom:8, fontFamily:"'Bebas Neue', sans-serif" }}>{kpi.label}</div>
             </Tooltip>
             <div style={{ color:kpi.col, fontSize:isMobile?22:28, fontFamily:"'Bebas Neue', sans-serif", marginBottom:5 }}>{kpi.value}</div>
-            <div style={{ color:ELECTRIC_BLUE, fontSize:10, fontWeight:700, fontFamily:"'Bebas Neue', sans-serif" }}>▲ {kpi.trend}</div>
+            <Tooltip C={C} text={`${kpi.trend} vs previous 7 days`}>
+              <div style={{ color:ELECTRIC_BLUE, fontSize:10, fontWeight:700, fontFamily:"'Bebas Neue', sans-serif", display:"inline-block" }}>▲ {kpi.trend}</div>
+            </Tooltip>
           </div>
         ))}
       </div>
