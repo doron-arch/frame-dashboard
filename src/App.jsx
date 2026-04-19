@@ -18,7 +18,7 @@ const PLATFORMS_LIST = ["All","X","TikTok","Instagram","Facebook","Telegram","Yo
 const NETWORKS_LIST = ["All","PHANTOM-IR","CEDAR-WAVE","NILE-ECHO","SHADOW-PKT","EURO-MASK"];
 const SEV_LIST = ["All","critical","high","medium","low"];
 
-const VALID_TABS = ['overview','livefeed','narratives','networks','geo','kpis','response'];
+const VALID_TABS = ['overview','live-feed','narratives','networks','geo-intel','kpis','response'];
 const PLATFORM_VALUES = Object.values(PLATFORMS);
 const SEV_VALUES = Object.values(SEVERITY);
 const NETWORK_VALUES = Object.values(NETWORKS);
