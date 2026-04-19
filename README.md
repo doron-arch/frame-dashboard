@@ -57,13 +57,13 @@ Build for production:
     ├── vite.config.js
     ├── package.json
     ├── src/
-    │   ├── App.jsx                # root component + tab routing + URL deep-linking (Phase 6a)
+    │   ├── App.jsx                # root component, tab routing, inline deep-link logic (Phase 6a)
     │   ├── main.jsx               # entry
     │   ├── frame-tokens.js        # design tokens
-    │   ├── schemas/
-    │   │   └── frame-schemas.js   # shared enums + typedefs (ESM)
-    │   ├── components/            # UI + per-tab view components (Badge, FilterBar, GeoMap, OverviewTab, LiveFeedTab, ...)
-    │   └── data/                  # static datasets (alerts, geo, narratives, networks, pool, vpnRoutes)
+    │   ├── components/            # tab views + UI primitives (FilterBar, PostCard, GeoMap, etc.)
+    │   ├── data/                  # demo data modules (alerts, geo, narratives, networks, ...)
+    │   └── schemas/
+    │       └── frame-schemas.js   # shared enums + typedefs (ESM)
     └── docs/screenshots/          # (TODO)
 
 ## Related FRAME repos
