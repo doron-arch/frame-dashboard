@@ -1,4 +1,7 @@
 /* ── FRAME Brand Specs v2.0 — Strict Color Palette ── */
+/* Canonical source: brand.json (root) · See BRAND.md for spec. */
+/* Values below MUST match brand.json.colors exactly. */
+/* This JS module exposes the same palette in ES module form for React consumers. */
 
 export const INDIGO = "#1800AD";
 export const ELECTRIC_BLUE = "#4FC3F7";
