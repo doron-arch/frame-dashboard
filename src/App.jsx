@@ -14,6 +14,7 @@ import ResponseTab from "./components/ResponseTab.jsx";
 import NarrativesTab from "./components/NarrativesTab.jsx";
 import KpisTab from "./components/KpisTab.jsx";
 import MockupNav from './components/MockupNav';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const PLATFORMS_LIST = ["All","X","TikTok","Instagram","Facebook","Telegram","YouTube"];
 const NETWORKS_LIST = ["All","PHANTOM-IR","CEDAR-WAVE","NILE-ECHO","SHADOW-PKT","EURO-MASK"];
@@ -51,7 +52,7 @@ function writeUrlState(tab, filters) {
 }
 
 export default function Dashboard() {
-  const [theme, setTheme] = useState(() => localStorage.getItem('frame-theme') || 'light');
+  const [theme, setTheme] = useState(() => localStorage.getItem('frame-theme') || 'dark');
   const isDark = theme === "dark";
   const C = isDark ? DARK : LIGHT;
   const sevColor = s => s==="critical"?CORAL_RED:s==="high"?CORAL_LIGHT:s==="medium"?ELECTRIC_BLUE:C.muted;
@@ -257,13 +258,15 @@ export default function Dashboard() {
 
       {/* ── BODY ── */}
       <main id="main-content" style={{ display:"flex", flex:1, overflow:"hidden", flexDirection:isMobile && tab === "live-feed" ? "column" : "row" }}>
-        {tab==="overview" && <OverviewTab C={C} isDark={isDark} isMobile={isMobile} feed={feed} selected={selected} newIds={newIds} handleSelect={handleSelect} setTab={setTab} SectionHeader={SectionHeader} sevColor={sevColor} dataColor={dataColor} threatColor={threatColor}/>}
-        {tab==="live-feed" && <LiveFeedTab C={C} isDark={isDark} isMobile={isMobile} filteredFeed={filteredFeed} selected={selected} newIds={newIds} handleSelect={handleSelect} paused={paused} setPaused={setPaused} sevColor={sevColor} dataColor={dataColor} threatColor={threatColor}/>}
-        {tab==="geo-intel" && <GeoIntelTab C={C} isDark={isDark} isMobile={isMobile}/>}
-        {tab==="networks" && <NetworksTab C={C} isDark={isDark} isMobile={isMobile} dataColor={dataColor}/>}
-        {tab==="response" && <ResponseTab C={C} isDark={isDark} isMobile={isMobile} dataColor={dataColor}/>}
-        {tab==="narratives" && <NarrativesTab C={C} isDark={isDark} isMobile={isMobile} sevColor={sevColor}/>}
-        {tab==="kpis" && <KpisTab C={C} isDark={isDark} isMobile={isMobile} dataColor={dataColor}/>}
+        <ErrorBoundary>
+          {tab==="overview" && <OverviewTab C={C} isDark={isDark} isMobile={isMobile} feed={feed} selected={selected} newIds={newIds} handleSelect={handleSelect} setTab={setTab} SectionHeader={SectionHeader} sevColor={sevColor} dataColor={dataColor} threatColor={threatColor}/>}
+          {tab==="live-feed" && <LiveFeedTab C={C} isDark={isDark} isMobile={isMobile} filteredFeed={filteredFeed} selected={selected} newIds={newIds} handleSelect={handleSelect} paused={paused} setPaused={setPaused} sevColor={sevColor} dataColor={dataColor} threatColor={threatColor}/>}
+          {tab==="geo-intel" && <GeoIntelTab C={C} isDark={isDark} isMobile={isMobile}/>}
+          {tab==="networks" && <NetworksTab C={C} isDark={isDark} isMobile={isMobile} dataColor={dataColor}/>}
+          {tab==="response" && <ResponseTab C={C} isDark={isDark} isMobile={isMobile} dataColor={dataColor}/>}
+          {tab==="narratives" && <NarrativesTab C={C} isDark={isDark} isMobile={isMobile} sevColor={sevColor}/>}
+          {tab==="kpis" && <KpisTab C={C} isDark={isDark} isMobile={isMobile} dataColor={dataColor}/>}
+        </ErrorBoundary>
       </main>
 
       {/* ── FOOTER ── */}
