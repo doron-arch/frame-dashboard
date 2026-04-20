@@ -13,7 +13,7 @@ export const DARK = {
   bg: DARK_NAVY, panel: "#0E1235", panelLight: "#131848",
   border: "#222860", blue: "#181E4A", blueMid: "#1E2560", blueLight: "#2A3270",
   accent: ELECTRIC_BLUE, accentData: ELECTRIC_BLUE, white: "#FFFFFF", offWhite: "#E0E0E0",
-  muted: "#B0B0B0", mutedDark: "#6670A0",
+  muted: "#B0B0B0", mutedDark: "#7B86B8",
   red: CORAL_RED, orange: CORAL_LIGHT, yellow: ELECTRIC_BLUE,
   green: ELECTRIC_BLUE, teal: ELECTRIC_BLUE, text: "#FFFFFF",
   mapBg: "#050820", mapLand: "#121860",
