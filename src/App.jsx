@@ -51,7 +51,7 @@ function writeUrlState(tab, filters) {
 }
 
 export default function Dashboard() {
-  const [theme, setTheme] = useState(() => localStorage.getItem('frame-theme') || 'light');
+  const [theme, setTheme] = useState(() => localStorage.getItem('frame-theme') || 'dark');
   const isDark = theme === "dark";
   const C = isDark ? DARK : LIGHT;
   const sevColor = s => s==="critical"?CORAL_RED:s==="high"?CORAL_LIGHT:s==="medium"?ELECTRIC_BLUE:C.muted;
