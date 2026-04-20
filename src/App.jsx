@@ -216,7 +216,7 @@ export default function Dashboard() {
 
       {/* ── ALERT BAR ── */}
       <div style={{ background:C.alertBg, borderBottom:`1px solid ${C.border}`, padding:"6px 22px", display:"flex", alignItems:"center", gap:12, flexShrink:0, overflow:"hidden" }}>
-        <Tooltip C={C} text="Real-time system alerts"><span style={{ background:ALERTS[alertIdx].c, color:"#fff", borderRadius:0, padding:"2px 10px", fontSize:12, fontWeight:800, whiteSpace:"nowrap", fontFamily:"'Bebas Neue', sans-serif" }}>▲ ALERT</span></Tooltip>
+        <Tooltip C={C} text="Real-time system alerts"><span style={{ background:ALERTS[alertIdx].c, color:DARK_NAVY, borderRadius:0, padding:"2px 10px", fontSize:12, fontWeight:800, whiteSpace:"nowrap", fontFamily:"'Bebas Neue', sans-serif" }}>▲ ALERT</span></Tooltip>
         <span style={{ color:ALERTS[alertIdx].c, fontSize:13, fontFamily:"'Inter', sans-serif", opacity:0.9, transition:"all 0.3s" }}>{ALERTS[alertIdx].msg}</span>
       </div>
 
